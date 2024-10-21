@@ -65,8 +65,8 @@ export default {
   methods: {
     async submit () {
       try {
-        const baseURL = process.env.API_BASE_URL || 'http://localhost:3000'
-        await axios.post(`${baseURL}/api/auth/login`, {
+        //const baseURL = process.env.API_BASE_URL || 'http://localhost:3000'
+        await axios.post(`${baseURL}/api/jugador/login`, {
           email: this.email,
           password: this.password
         })
