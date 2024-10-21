@@ -1,1 +1,0 @@
-import{_ as t,c as o,a as s,o as c}from"./mpqWqgHx.js";const n={};function r(a,e){return c(),o("section",null,e[0]||(e[0]=[s("h1",{class:"text-4xl text-center mt-8"}," politica de cookies ",-1)]))}const i=t(n,[["render",r]]);export{i as default};

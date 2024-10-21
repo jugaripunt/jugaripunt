@@ -67,7 +67,7 @@ export default {
       try {
         //const baseURL = process.env.API_BASE_URL || 'http://localhost:3000'
         const baseURL = process.env.API_BASE_URL
-        await axios.post(`jugaripunt.cat/api/jugador/login`, {
+        await axios.post(`api/jugador/login`, {
           email: this.email,
           password: this.password
         })

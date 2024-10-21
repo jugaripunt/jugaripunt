@@ -112,7 +112,7 @@ export default {
       try {
         console.log(process.env.API_BASE_URL)
         //const baseURL = process.env.API_BASE_URL || 'http://localhost:3000'
-        const response = await axios.post(`jugaripunt.cat/api/jugador/`, {
+        const response = await axios.post(`api/jugador/`, {
           email: this.email,
           contrasenya: this.password,
           nom: this.nom,
