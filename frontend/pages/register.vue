@@ -115,7 +115,7 @@ export default {
         const response = await axios.post(`api/jugador/`, {
           method: 'POST',
           headers: {
-              'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+              'Content-Type': 'application/json',
           },
           email: this.email,
           contrasenya: this.password,

@@ -68,10 +68,6 @@ export default {
         //const baseURL = process.env.API_BASE_URL || 'http://localhost:3000'
         const baseURL = process.env.API_BASE_URL
         await axios.post(`api/jugador/login`, {
-          method: 'POST',
-          headers: {
-              'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-          },
           email: this.email,
           password: this.password
         })
