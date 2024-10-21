@@ -1,1 +1,0 @@
-import{_ as c,c as t,a as e,o as l}from"./RmUbHfIX.js";const o={};function r(n,a){return l(),t("div",null,a[0]||(a[0]=[e("h1",null,"Privacy Policy",-1),e("p",null,"Aquesta és la pàgina de la política de privacitat.",-1)]))}const i=c(o,[["render",r]]);export{i as default};
