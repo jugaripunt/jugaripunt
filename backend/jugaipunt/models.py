@@ -13,3 +13,27 @@ class Jugador(models.Model):
 
     def __str__(self):
         return self.nom  # Retorna el nom del jugador com a representació en cadena
+
+
+    # Model per la partida - en construcció
+    #class Partida(models.Model):
+        #jugador1 = # Porta la ID del emparallement i mostra concatenats nom i cognom.
+        #jugador2 = # Porta la ID del emparallement i mostra concatenats nom i cognom.
+        #data = models.DateField() #data informada de la partida
+        #resultat = #ha de portar el valor resultat de la partida asociat a la id
+
+        #def __str__(self):
+            #return #ha de retornar el nom de la partida, els jugadors amb el seu resultats i la data. el valor retornat s'utilitzara per les lligues id -> resultat
+
+
+    # Model per la lliga - en construcció
+    #class Lliga(models.Model):
+        #NomLLiga = models.CharField(max_length=50)  # Nom de la lliga (max. 50 caràcters)
+        #data = models.DateField() #data informada de la lliga
+        #ubicacio = #ubicacio geografica de la lliga. es podria asociar a futur a mapa
+        #torneigEliminatori = #valor true or false
+        #usuariAdmin = #admin associat per ID
+        #resultat = #guanyador de la lliga amb ID
+
+        #def __str__(self):
+            #return #ha de retornar el nom de la lliga i els seus camps en cadena
