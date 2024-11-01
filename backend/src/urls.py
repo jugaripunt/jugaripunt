@@ -25,5 +25,5 @@ def welcome_view(request):
 urlpatterns = [
     path('admin/', admin.site.urls),  # Ruta para el admin
     path('', welcome_view, name='welcome'),  # Ruta para la página de bienvenida
-    path('api/jugador/', include('jugaipunt.urls')),  # Incluye las URLs de tu app jugador
+    path('api/', include('jugaipunt.urls')),  # Incluye las URLs de tu app jugador
 ]

@@ -5,3 +5,4 @@
 **/.output
 **/dist
 **/.env
+/backend/src/settings.py

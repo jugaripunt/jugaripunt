@@ -93,7 +93,7 @@ DATABASES = {
         'NAME': 'jugaipunt',
         'USER': 'grup2',
         'PASSWORD': 'grup2',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432', 
     }
 }

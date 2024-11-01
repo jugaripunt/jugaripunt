@@ -14,6 +14,7 @@
     "lintfix": "npm run lint:js -- --fix"
   },
   "dependencies": {
+    "@nuxt/ui": "^2.18.7",
     "axios": "^1.7.7",
     "nuxt": "^3.13.0",
     "vue": "latest",

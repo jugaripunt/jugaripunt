@@ -34,7 +34,7 @@ services:
       - "8086:3000"  # Cambiamos el puerto a 3000, que es el predeterminado de Nuxt.js
     environment:
       - NODE_ENV=development  # Cambia a 'development' para habilitar HMR
-    command: npm run dev  # Asegúrate de que estás ejecutando el comando correcto
+    command: sh -c "npm install @nuxt/ui && npm run dev"  # Instala Nuxt UI y luego ejecuta el comando de desarrollo
 
    
 

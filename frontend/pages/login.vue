@@ -65,7 +65,7 @@ export default {
   methods: {
     async submit () {
       try {
-        const response = await axios.post('http://localhost:8000/api/jugador/login/', {
+        const response = await axios.post('http://localhost:8000/api/login', {
           email: this.email,
           contrasenya: this.password
         })
@@ -80,8 +80,8 @@ export default {
           this.email = ''
           this.password = ''
 
-          // Recarregar la pàgina
-          location.reload()
+          // Redirigim a la part restringida de la web
+          window.location = '/DashboardPage'
         }
       } catch (error) {
         const errorMessage = error.response?.data?.error || error.message
@@ -94,4 +94,3 @@ export default {
 
 <style scoped>
 </style>
-

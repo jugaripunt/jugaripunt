@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
   app: {
     head: {
-      title: 'frontend',
+      title: 'Jugar i Punt',
       htmlAttrs: {
         lang: 'ca'
       },
@@ -18,7 +18,7 @@ export default defineNuxtConfig({
         { name: 'format-detection', content: 'telephone=no' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/chess.ico' }
       ]
     }
   },
@@ -37,12 +37,10 @@ export default defineNuxtConfig({
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module',
-    // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss'
-  ],
+  modules: [// https://go.nuxtjs.dev/eslint
+    '@nuxtjs/eslint-module', // https://go.nuxtjs.dev/tailwindcss
+    // '@nuxtjs/tailwindcss',
+    '@nuxt/ui'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
