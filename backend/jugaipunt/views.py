@@ -91,6 +91,23 @@ def logout_view(request):
 
 
 #@csrf_exempt
+# DFA Funció per a retornar un JSON amb el nom i cognoms del jugador a partir d'una ID
+def jugador_nomComplet(request, jugador_id):
+    try:
+        # busquem el jugador per la ID
+        jugador = Jugador.objects.get(id=jugador_id)
+    except Jugador.DoesNotExist:
+        # Si no el troba, retornem un error en un JSON
+        return JsonResponse({'error': 'Jugador no trobat.'}, status=404)
+
+    # en Cas que SI existeixi, creem el JSON portant el nom i els cognoms
+    nomJugador = {
+        'nom_complet': f"{jugador.nom} {jugador.cognoms}"
+    }
+    # Retornem el nom del jugador perquè es pugui utilitzar
+    return JsonResponse(nomJugador)
+
+#@csrf_exempt
 #def creatorneig_view(request):
 #funció per a crear tornejos, descomentem i creem les lògiques
 
@@ -99,8 +116,27 @@ def logout_view(request):
 #funció per afegir els jugadors al torneig (des del frontend s'envien en una list, no jugador per jugador)
 
 #@csrf_exempt
-#def getUser_view(request):
 #funció per a retornar les dades de l'usuari, totes, si és admin, nom, cognom, partides en les que està
+def getUser_view(request, jugador_id):
+    try:
+        # busquem el jugador per la ID
+        jugador = Jugador.objects.get(id=jugador_id)
+    except Jugador.DoesNotExist:
+        # error en cas que no el trobi
+        return JsonResponse({'error': 'Jugador no trobat.'}, status=404)
+
+    # Si troba la ID, crearem un JSON amb els valors existents. podem amplicar si a futur posem mes
+    jugador_data = {
+        'id': jugador.id,
+        'nom': jugador.nom,
+        'cognoms': jugador.cognoms,
+        'edat': jugador.edat,
+        'email': jugador.email,
+        'num_federat': jugador.num_federat,
+        'admin': jugador.admin
+    }
+    # Retornem les dades del jugador en un JSON
+    return JsonResponse(jugador_data)
 
 #@csrf_exempt
 #def afegir_resultats(request):

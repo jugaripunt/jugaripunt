@@ -9,24 +9,26 @@ class Jugador(models.Model):
     email = models.EmailField()  # Correu electrònic del jugador (format de correu electrònic)
     num_federat = models.IntegerField(default=0) #numero de federat del jugador (numeric)
     contrasenya = models.CharField(max_length=128)  # Contrasenya del jugador (max. 128 caràcters)
+    admin = models.BooleanField(default=False)  # per controlar si es o no administrador
     session_token = models.CharField(max_length=255, blank=True, null=True)  # Camp opcional per al token de sessió
 
     def __str__(self):
         return self.nom  # Retorna el nom del jugador com a representació en cadena
 
 
-    # Model per la partida - en construcció
+    # DFA - Model per la partida - en construcció
     #class Partida(models.Model):
+        #idPartida = # asignem una ID a la partida
+        #data = models.DateField() #data informada de la partida
         #jugador1 = # Porta la ID del emparallement i mostra concatenats nom i cognom.
         #jugador2 = # Porta la ID del emparallement i mostra concatenats nom i cognom.
-        #data = models.DateField() #data informada de la partida
         #resultat = #ha de portar el valor resultat de la partida asociat a la id
 
         #def __str__(self):
             #return #ha de retornar el nom de la partida, els jugadors amb el seu resultats i la data. el valor retornat s'utilitzara per les lligues id -> resultat
 
 
-    # Model per la lliga - en construcció
+    # Eudald- Model per la lliga - en construcció
     #class Lliga(models.Model):
         #NomLLiga = models.CharField(max_length=50)  # Nom de la lliga (max. 50 caràcters)
         #data = models.DateField() #data informada de la lliga
