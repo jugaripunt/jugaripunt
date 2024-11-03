@@ -11,6 +11,8 @@
               Inici
             </nuxt-link>
           </li>
+          <!--DFA sprint 2 comentem per no repetir el mateix que el footer-->
+          <!--
           <li>
             <nuxt-link to="/about" class="hover:underline">
               Sobre nosaltres
@@ -21,6 +23,7 @@
               Contacte
             </nuxt-link>
           </li>
+          -->
         </ul>
       </nav>
       <div class="flex space-x-4">
