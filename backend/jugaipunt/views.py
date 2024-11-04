@@ -90,8 +90,8 @@ def logout_view(request):
     return JsonResponse({'error': 'Mètode no permès'}, status=405)
 
 
-#@csrf_exempt
 # DFA Funció per a retornar un JSON amb el nom i cognoms del jugador a partir d'una ID
+@csrf_exempt
 def jugador_nomComplet(request, jugador_id):
     try:
         # busquem el jugador per la ID
@@ -116,7 +116,11 @@ def jugador_nomComplet(request, jugador_id):
 #funció per afegir els jugadors al torneig (des del frontend s'envien en una list, no jugador per jugador)
 
 #@csrf_exempt
-#funció per a retornar les dades de l'usuari, totes, si és admin, nom, cognom, partides en les que està
+#def crearPartida_view(request):
+#funció per crear la partida en aleatori mitjançant dos ID random de jugadors, crea una id de partida i sobre aquesta es la que es guardaran els resultats
+
+#DFA funció per a retornar les dades de l'usuari, totes, si és admin, nom, cognom, partides en les que està
+@csrf_exempt
 def getUser_view(request, jugador_id):
     try:
         # busquem el jugador per la ID
@@ -125,7 +129,7 @@ def getUser_view(request, jugador_id):
         # error en cas que no el trobi
         return JsonResponse({'error': 'Jugador no trobat.'}, status=404)
 
-    # Si troba la ID, crearem un JSON amb els valors existents. podem amplicar si a futur posem mes
+    # Si troba la ID, crearem un JSON amb els valors existents. podem ampliar si a futur posem mes
     jugador_data = {
         'id': jugador.id,
         'nom': jugador.nom,
@@ -138,9 +142,46 @@ def getUser_view(request, jugador_id):
     # Retornem les dades del jugador en un JSON
     return JsonResponse(jugador_data)
 
-#@csrf_exempt
-#def afegir_resultats(request):
-#funció per a afegir els resultats de les partides. Data, usuari guanyador i perdedor. 
+#DFA funció per a afegir els resultats de les partides. Data, usuari guanyador i perdedor. ens portem el resultat de un desplegable
+@csrf_exempt
+def afegir_resultats(request, id_partida, id_jugador, resultat):
+    try:
+        # ens portem la ID de la partida que s'ha generat en l'aleatori
+        partida = Partida.objects.get(id=id_partida)
+    except Partida.DoesNotExist:
+        # si no troba la partida tornar un JSON amb l'error
+        return JsonResponse({'error': 'Partida no trobada.'}, status=404)
+
+    try:
+        # ara busquem al jugador per ID per veure que existeix
+        jugador = Jugador.objects.get(id=id_jugador)
+    except Jugador.DoesNotExist:
+        # Si no troba el jugador tornar un JSON amb l'error
+        return JsonResponse({'error': 'Jugador no trobat.'}, status=404)
+
+    # posem un control per si el desplegable  de resultat ve buit
+    if resultat not in ['guanyador', 'perdedor']:
+        return JsonResponse({'error': 'Resultat no vàlid. Utilitzeu "guanyador" o "perdedor".'}, status=400)
+
+    # Actualitzem el resultat segons el desplegable
+    if resultat == 'guanyador':
+        partida.guanyador = jugador
+        # per defecte nomes pot haber un guanyador i l'altre usuari automaticament es perdedor
+        partida.perdedor = partida.jugador2 if jugador.id == partida.jugador1.id else partida.jugador1
+    elif resultat == 'perdedor':
+        partida.perdedor = jugador
+        # la inversa, si el jugador es perdedor, l'altre usuari automaticament es guanyador
+        partida.guanyador = partida.jugador1 if jugador.id == partida.jugador2.id else partida.jugador2
+
+    # Guardem l'assignació a la partida
+    partida.save()
+
+    # Retornem un JSON indicant qui es el guanyador i perdedor perque la llogica de lliga el pugui utilitzar
+    return JsonResponse({
+        'guanyador': partida.guanyador.id,
+        'perdedor': partida.perdedor.id,
+        'missatge': 'Resultat actualitzat a la partida'
+    })
 
 
 
