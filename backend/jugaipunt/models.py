@@ -15,17 +15,16 @@ class Jugador(models.Model):
     def __str__(self):
         return self.nom  # Retorna el nom del jugador com a representació en cadena
 
-
-    # DFA - Model per la partida - en construcció
-    #class Partida(models.Model):
-        #idPartida = # asignem una ID a la partida
-        #data = models.DateField() #data informada de la partida
-        #jugador1 = # Porta la ID del emparallement i mostra concatenats nom i cognom.
-        #jugador2 = # Porta la ID del emparallement i mostra concatenats nom i cognom.
-        #resultat = #ha de portar el valor resultat de la partida asociat a la id
-
-        #def __str__(self):
-            #return #ha de retornar el nom de la partida, els jugadors amb el seu resultats i la data. el valor retornat s'utilitzara per les lligues id -> resultat
+    # DFA - Model per la partida
+class Partida(models.Model):
+    id_partida = models.AutoField(primary_key=True)   # asignem una ID  unica la partida
+    data_partida = models.DateField()  #data informada de la partida
+    jugador1 = models.CharField(max_length=100)  # Porta la ID del emparallement i mostra concatenats nom i cognom del jugador 1
+    jugador2 = models.CharField(max_length=100)  # Porta la ID del emparallement i mostra concatenats nom i cognom. del jugador 2
+    resultat = models.IntegerField()  #ha de portar el valor resultat de la partida asociat a la id
+    
+    def __str__(self):
+        return f"{self.jugador1} vs {self.jugador2} - Resultat: {self.resultat}" #retorna el resultat dels dos jugadors
 
 
     # Eudald- Model per la lliga - en construcció
