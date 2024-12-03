@@ -2,7 +2,7 @@
 services:
   frontend:
     build:
-      context: ../
+      context: ..
       dockerfile: Dockerfile.dev.frontend
     environment:
       API_BASE_URL: http://backend:8000
@@ -12,16 +12,13 @@ services:
     security_opt:
       - no-new-privileges:true
     ports:
-      - "8086:3000"
-    volumes:
-     - ../frontend:/app 
+      - "80:80"
     depends_on:
       - backend
     restart: on-failure
-
   backend:
     build:
-      context: ../
+      context: ..
       dockerfile: Dockerfile.dev.backend
     #environment:
     #  PORT: 8000
@@ -36,15 +33,13 @@ services:
     security_opt:
       - no-new-privileges:true
     volumes:
-      - ../backend:/jugaripunt:z  # Monte el backend en el contenedor
       - postgres_socket:/var/run/postgresql
     ports:
       - "8000:8000"
     depends_on:
       postgres:
         condition: service_healthy
-    restart: always
-
+    restart: on-failure
   postgres:
     image: postgres:alpine
     environment:
@@ -70,7 +65,6 @@ services:
       timeout: 5s
       retries: 5
     restart: on-failure
-
 volumes:
   postgres_data:
   postgres_socket:

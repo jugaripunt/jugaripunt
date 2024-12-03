@@ -1,26 +1,14 @@
-# Usamos una imagen base de Node
+# Frontend build
 FROM node:alpine AS builder
 WORKDIR /app
-
-# Desactivar la telemetría de Nuxt
 ENV NUXT_TELEMETRY_DISABLED=1
-
-# Copiar el archivo package.json y package-lock.json
-COPY ./frontend/package.json ./
-COPY ./frontend/package-lock.json ./
-
-# Instalar dependencias de npm
-RUN npm install
-
-# Copiar el resto del código fuente de frontend
 COPY ./frontend /app
-
-
-# Instalar Vuese globalmente para generar documentación
-RUN npm install -g @vuese/cli
-
-# Exponer el puerto
-EXPOSE 3000
-
-# Iniciar el servidor en modo desarrollo
-CMD ["npm", "run", "dev"]
+RUN npm install
+RUN npm run build
+# Busybox httpd
+FROM busybox:musl
+RUN adduser -D jugaripunt
+USER jugaripunt
+WORKDIR /jugaripunt
+COPY --from=builder /app/.output/public /jugaripunt
+CMD [ "sh", "-c", "NUXT_PUBLIC_API_BASE_URL=${API_BASE_URL} busybox httpd -f -v -p ${PORT:-80}" ]

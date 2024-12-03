@@ -1,33 +1,13 @@
-# Usamos una imagen base de Python
-FROM python:3.10-alpine
-
-# Instalamos las dependencias necesarias
+# Backend build
+FROM alpine:latest
 RUN apk add --no-cache \
-    bash \
-    python3-dev \
-    libpq-dev \
-    && pip install --upgrade pip
-
-# Copiamos el archivo requirements.txt
-COPY ./backend/requirements.txt /tmp/requirements.txt
-
-# Instalamos dependencias de Python
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
-
-# Configuramos el directorio de trabajo
+    py3-django \
+    py3-django-cors-headers \
+    py3-django-rest-framework \
+    py3-psycopg2 \
+    && rm -rf /var/cache/apk/*
 WORKDIR /jugaripunt
-
-# Copiamos todo el código fuente de tu aplicación al contenedor
-COPY ./backend /jugaripunt/
-
-# Creamos un usuario no-root (opcional)
-RUN adduser -D jugaripunt
-RUN chown -R jugaripunt:jugaripunt /jugaripunt
-USER jugaripunt
-
-# Exponemos el puerto donde Django correrá
-EXPOSE 8000
-
-# Usamos el comando de desarrollo para iniciar Django
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
-
+COPY ./backend /jugaripunt
+RUN python manage.py collectstatic --noinput
+EXPOSE ${PORT:-8000}
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:${PORT:-8000}"]
